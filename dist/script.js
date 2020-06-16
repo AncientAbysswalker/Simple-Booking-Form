@@ -1,9 +1,6 @@
 "use strict";
 const container = document.querySelector(".container");
 const all_seats = [...document.querySelectorAll(".row .seat")];
-let seats = [
-    ...document.querySelectorAll(".row .seat:not(.unavail)"),
-];
 const countDisplay = document.getElementById("count");
 const viewingDisplay = document.getElementById("viewing");
 const totalCostDisplay = document.getElementById("total");
@@ -55,7 +52,7 @@ function loadAvailableViewings() {
 function loadLocalStorage() {
     selected_seats = JSON.parse(localStorage.getItem("selectedSeats")) || [];
     if (selected_seats !== null && selected_seats.length > 0) {
-        seats.forEach((seat, index) => {
+        all_seats.forEach((seat, index) => {
             if (selected_seats.indexOf(index) > -1) {
                 seat.classList.add("selected");
             }
@@ -77,7 +74,7 @@ container.addEventListener("click", (e) => {
     let target = e.target;
     if (target.classList.contains("seat") &&
         !target.classList.contains("unavail")) {
-        let seat_index = seats.indexOf(target);
+        let seat_index = all_seats.indexOf(target);
         if (target.classList.toggle("selected")) {
             selected_seats.push(seat_index);
         }

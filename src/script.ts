@@ -1,9 +1,6 @@
 // HTML Elements
 const container = document.querySelector(".container")! as HTMLElement;
 const all_seats = [...document.querySelectorAll(".row .seat")] as HTMLElement[];
-let seats = [
-  ...document.querySelectorAll(".row .seat:not(.unavail)"),
-] as HTMLElement[];
 const countDisplay = document.getElementById("count")! as HTMLElement;
 const viewingDisplay = document.getElementById("viewing")! as HTMLElement;
 const totalCostDisplay = document.getElementById("total")! as HTMLElement;
@@ -86,7 +83,7 @@ function loadLocalStorage() {
 
   // If there is data
   if (selected_seats !== null && selected_seats.length > 0) {
-    seats.forEach((seat, index) => {
+    all_seats.forEach((seat, index) => {
       if (selected_seats.indexOf(index) > -1) {
         seat.classList.add("selected");
       }
@@ -126,7 +123,7 @@ container.addEventListener("click", (e) => {
     target.classList.contains("seat") &&
     !target.classList.contains("unavail")
   ) {
-    let seat_index = seats.indexOf(target);
+    let seat_index = all_seats.indexOf(target);
 
     // Toggle seat and add/remove from selected_seats
     if (target.classList.toggle("selected")) {
